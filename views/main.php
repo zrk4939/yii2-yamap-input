@@ -1,6 +1,6 @@
 <?php
 
-use domain\widgets\YandexMap\assets\YandexApiAsset;
+use zrk4939\widgets\yamap\assets\YandexApiAsset;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
