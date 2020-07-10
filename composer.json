@@ -1,0 +1,18 @@
+{
+    "name": "zrk4939/yii2-yamap-input",
+    "description": "The yandex map api input widget for the Yii framework 2",
+    "type": "yii2-extension",
+    "license": "Unlicense",
+    "keywords": ["yii2", "yandex", "map", "input"],
+    "authors": [
+        {
+            "name": "Ilya Youshketov",
+            "email": "zrk4939@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "zrk4939\\widgets\\yamap\\": ""
+        }
+    }
+}
