@@ -15,7 +15,7 @@ class YandexApiAsset extends \yii\web\AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@vendor/zrk4939/widgets/yamap/assets/dist';
+    public $sourcePath = '@vendor/zrk4939/yii2-yamap-input/assets/dist';
 
     /**
      * @inheritdoc
