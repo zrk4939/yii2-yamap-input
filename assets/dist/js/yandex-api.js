@@ -150,20 +150,26 @@ function YandexApiConstructor(config) {
         this.initSearchForm();
     };
 
+    let clickEvent = function (e) {
+        var coordinates = e.get('coords');
+
+        $this.getAddressOfCoordinates(coordinates);
+        $this.clearMap();
+        $this.newPlaceMark(coordinates, false);
+
+        if ($this.blocks.latitude && $this.blocks.longitude) {
+            $this.blocks.latitude.val(coordinates[0]);
+            $this.blocks.longitude.val(coordinates[1]);
+        }
+    };
+
     this.initClickEvent = function () {
         // Обработка события, возникающего при щелчке левой кнопкой мыши в любой точке карты.
-        $this.map.events.add('click', function (e) {
-            var coordinates = e.get('coords');
+        $this.map.events.add('click', clickEvent);
+    };
 
-            $this.getAddressOfCoordinates(coordinates);
-            $this.clearMap();
-            $this.newPlaceMark(coordinates, false);
-
-            if ($this.blocks.latitude && $this.blocks.longitude) {
-                $this.blocks.latitude.val(coordinates[0]);
-                $this.blocks.longitude.val(coordinates[1]);
-            }
-        });
+    this.disableClickEvent = function () {
+        $this.map.events.remove('click', clickEvent);
     };
 
     this.initSearchForm = function () {
@@ -291,8 +297,8 @@ function YandexApiConstructor(config) {
 
     this.getDataKindOfCoordinates = function (coordinates, kind, callbackSuccess, callbackError) {
         ymaps.geocode(coordinates, {
-            results: 1,
-            kind: kind
+            results: 1
+            // kind: kind
         }).then(
             callbackSuccess,
             callbackError

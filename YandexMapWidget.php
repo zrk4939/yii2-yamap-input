@@ -9,16 +9,12 @@
 namespace zrk4939\widgets\yamap;
 
 
-use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\widgets\InputWidget;
 
-class YandexMapWidget extends Widget
+class YandexMapWidget extends InputWidget
 {
-    public $model;
-    public $form;
-    public $idPrefix;
-    public $districts;
     public $attributes = [];
     public $click_handle = true;
     public $leadLatLng = false;
@@ -43,6 +39,9 @@ class YandexMapWidget extends Widget
         'home' => null
     ];
 
+    /**
+     * @return string
+     */
     public function run()
     {
         $attributes = ArrayHelper::merge($this->defaultAttributes, $this->attributes);
@@ -56,8 +55,6 @@ class YandexMapWidget extends Widget
         return $this->render('main', [
             'helpMe' => $this->helpMe,
             'model' => $this->model,
-            'form' => $this->form,
-            'districts' => $this->districts,
             'attributes' => $attributes,
             'click_handle' => Json::encode($this->click_handle),
             'leadLatLng' => Json::encode($this->leadLatLng),

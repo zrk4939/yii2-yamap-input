@@ -6,11 +6,9 @@ use yii\helpers\Json;
 
 /* @var $this yii\web\View */
 /* @var $model yii\base\Model */
-/* @var $form frontend\components\ActiveForm */
 /* @var $click_handle boolean */
 /* @var $leadLatLng boolean */
 /* @var $attributes array */
-/* @var $districts domain\modules\parser\models\ObjectDistrict[] */
 /* @var $inputOptions array */
 /* @var $label string */
 /* @var $helpMe boolean */
@@ -95,5 +93,3 @@ if (Json::decode($click_handle)) {
     echo Html::tag('div', 'Кликните в нужном месте на карте, чтобы указать координаты', ['class' => 'hint-block']);
 }
 ?>
-
-<?= Html::hiddenInput('districts', Json::encode($districts), ['id' => 'districts']) ?>
