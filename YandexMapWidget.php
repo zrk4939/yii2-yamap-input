@@ -19,6 +19,8 @@ class YandexMapWidget extends InputWidget
     public $click_handle = true;
     public $leadLatLng = false;
 
+    public $initMapConfig = [];
+
     public $inputOptions = [];
     public $label = 'Воспользуйтесь поиском';
 
@@ -48,7 +50,7 @@ class YandexMapWidget extends InputWidget
         $inputOptions = [
             'class' => 'project-input',
             'autocomplete' => 'off',
-            'placeholder' => 'Пример: Киров, ул. Ленина, 18',
+            'placeholder' => 'Пример: Москва, улица Новый Арбат, 11',
             //'aria-required' => 'true',
         ];
 
@@ -60,6 +62,11 @@ class YandexMapWidget extends InputWidget
             'leadLatLng' => Json::encode($this->leadLatLng),
             'inputOptions' => ArrayHelper::merge($inputOptions, $this->inputOptions, ['id' => $this->inputId]),
             'label' => $this->label,
+            'initMapConfig' => array_merge([
+                'center' => [58.60, 49.62], // Киров
+                'zoom' => 12,
+                'controls' => ['typeSelector', 'zoomControl']
+            ], $this->initMapConfig),
         ]);
     }
 }

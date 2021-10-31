@@ -12,6 +12,7 @@ use yii\helpers\Json;
 /* @var $inputOptions array */
 /* @var $label string */
 /* @var $helpMe boolean */
+/* @var $initMapConfig array */
 
 YandexApiAsset::register($this);
 
@@ -22,6 +23,7 @@ foreach ($attributes as $key => $attribute) {
 }
 
 $idPrefix = $model->formName();
+$initMapConfig = Json::encode((object)$initMapConfig);
 
 $script = <<<JS
 $(function () {
@@ -40,7 +42,8 @@ $(function () {
             LocalityName: '{$dataApiAttributes['LocalityName']}',
             street: '{$dataApiAttributes['street']}',
             home: '{$dataApiAttributes['home']}'
-        }
+        },
+        initMapConfig: {$initMapConfig}
     };
 
 window.y_api = new YandexApiConstructor(config);
@@ -54,40 +57,40 @@ JS;
 $this->registerJs($script);
 ?>
 
-    <!-- Блок для Яндекс-карты -->
-    <div class="field-wrap required">
-        <?php if (Json::decode($click_handle)): ?>
-            <div id="search-address">
-                <!-- LABEL -->
-                <?php
-                if ($helpMe) {
-                    echo Html::label($label . Html::img('/images/help-icon-input.png'), null, [
-                        'class' => 'project-label help-me',
-                        'data-toggle' => 'popover-x',
-                        'data-target' => '#estate-address',
-                    ]);
-                } else {
-                    echo Html::label($label, null, [
-                        'class' => 'project-label',
-                    ]);
-                }
-                ?>
+<!-- Блок для Яндекс-карты -->
+<div class="field-wrap required">
+    <?php if (Json::decode($click_handle)): ?>
+        <div id="search-address">
+            <!-- LABEL -->
+            <?php
+            if ($helpMe) {
+                echo Html::label($label . Html::img('/images/help-icon-input.png'), null, [
+                    'class' => 'project-label help-me',
+                    'data-toggle' => 'popover-x',
+                    'data-target' => '#estate-address',
+                ]);
+            } else {
+                echo Html::label($label, null, [
+                    'class' => 'project-label',
+                ]);
+            }
+            ?>
 
-                <?= Html::input('text', Html::getInputName($model, 'address_search'), null, $inputOptions) ?>
-                <?php /*echo Html::input('text', 'search-address', null, $inputOptions)*/ ?>
-                <?= Html::tag('span', '+', ['class' => 'search-address-cancel']) ?>
-                <?= Html::tag('ul', '', ['id' => 'search-address-variants']) ?>
-            </div>
-        <?php endif; ?>
-    </div>
-    <div>
-        <div class="map-wrapper">
-            <?= Html::tag('div', null, [
-                'id' => $idPrefix . '-city-map',
-                'class' => 'yandex-map-api-block'
-            ]) ?>
+            <?= Html::input('text', Html::getInputName($model, 'address_search'), null, $inputOptions) ?>
+            <?php /*echo Html::input('text', 'search-address', null, $inputOptions)*/ ?>
+            <?= Html::tag('span', '+', ['class' => 'search-address-cancel']) ?>
+            <?= Html::tag('ul', '', ['id' => 'search-address-variants']) ?>
         </div>
+    <?php endif; ?>
+</div>
+<div>
+    <div class="map-wrapper">
+        <?= Html::tag('div', null, [
+            'id' => $idPrefix . '-city-map',
+            'class' => 'yandex-map-api-block'
+        ]) ?>
     </div>
+</div>
 <?php
 if (Json::decode($click_handle)) {
     echo Html::tag('div', 'Кликните в нужном месте на карте, чтобы указать координаты', ['class' => 'hint-block']);

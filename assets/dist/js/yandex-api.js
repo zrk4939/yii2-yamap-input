@@ -15,6 +15,7 @@ function YandexApiConstructor(config) {
     this.fields = config.fields;
     this.click_handle = config.click_handle;
     this.leadLatLng = config.leadLatLng;
+    this.initMapConfig = config.initMapConfig;
 
     this.blocks = {
         latitude: null,
@@ -51,11 +52,7 @@ function YandexApiConstructor(config) {
     };
 
     this.initMap = function () {
-        $this.map = new ymaps.Map($this.mapBlockId, {
-                center: [58.60, 49.62], // Киров
-                zoom: 15,
-                controls: ['typeSelector', 'zoomControl']
-            },
+        $this.map = new ymaps.Map($this.mapBlockId, this.initMapConfig,
             {
                 autoFitToViewport: false
             },
